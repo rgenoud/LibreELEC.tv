@@ -1,3 +1,30 @@
+**Unofficial LibreELEC fork with CVBS support**
+This is a fork of LibreELEC that supports CVBS output.
+It has only been tested on Wetek LibreELEC edition (aka Wetek play - LibreELEC).
+
+Quick Howto:
+```
+git clone -b libreelec-8.0cvbs https://github.com/rgenoud/LibreELEC.tv.git
+cd LibreELEC.tv
+PROJECT=WeTek_Play ARCH=arm time make image # this takes HOURS (like 5-10 hours the first time)
+```
+NB: This will use a lot of disk space in LibreELEC.tv (~16Gio) and in ~/.ccache-libreelec (~3Gio).
+You can use another directoty for ccache with the option CCACHE_DIR=/my_scratch_partition/ccache-libreelec
+ccache is usefull for speed-up next compilations.
+
+Once it's finished, you can copy the tar for update:
+```
+scp target/LibreELEC-WeTek_Play.arm-8.0cvbs.tar wetek_ip_address:/storage/.update/
+```
+At last, you need to set the fallback cap:
+```
+ssh wetek_ip_address "echo 576cvbs > /storage/.kodi/userdata/fallback_cap"
+```
+NB: 480cvbs is also supported.
+NB2: override_cap can be used instead of fallback_cap. In this case, HDMI won't work and kodi will use CVBS by default.
+
+Enjoy !
+
 # LibreELEC
 
 LibreELEC is a 'Just enough OS' Linux distribution for running the award-winning [Kodi](http://kodi.tv) software on popular mediacentre hardware. LibreELEC is a conservative fork of the popular [OpenELEC](http://openelec.tv) project with a stronger focus on pre-release testing and post-release change management. Further information on the project can be found on the [LibreELEC website](https://libreelec.tv).
